@@ -38,6 +38,11 @@ app.use(compression());
 
 app.use('/api', coreAuthRouter);
 app.use('/api', adminAuth.isValidAuthToken, coreApiRouter);
+app.use(
+  '/api/queries',
+  adminAuth.isValidAuthToken,
+  require('./routes/appRoutes/queriesApi')
+);
 app.use('/api', adminAuth.isValidAuthToken, erpApiRouter);
 app.use('/download', coreDownloadRouter);
 app.use('/public', corePublicRouter);
