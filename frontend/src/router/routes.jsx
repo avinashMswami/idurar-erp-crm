@@ -1,6 +1,9 @@
+import QueryRead from '@/pages/Query/QueryRead';
+import QueryCreate from '@/pages/Query/QueryCreate';
 import { lazy } from 'react';
 
 import { Navigate } from 'react-router-dom';
+import QueryUpdate from '@/pages/Query/QueryUpdate';
 
 const Logout = lazy(() => import('@/pages/Logout.jsx'));
 const NotFound = lazy(() => import('@/pages/NotFound.jsx'));
@@ -9,7 +12,7 @@ const Dashboard = lazy(() => import('@/pages/Dashboard'));
 const Customer = lazy(() => import('@/pages/Customer'));
 const Invoice = lazy(() => import('@/pages/Invoice'));
 const InvoiceCreate = lazy(() => import('@/pages/Invoice/InvoiceCreate'));
-
+const Query = lazy(() => import('@/pages/Query'));
 const InvoiceRead = lazy(() => import('@/pages/Invoice/InvoiceRead'));
 const InvoiceUpdate = lazy(() => import('@/pages/Invoice/InvoiceUpdate'));
 const InvoiceRecordPayment = lazy(() => import('@/pages/Invoice/InvoiceRecordPayment'));
@@ -72,6 +75,22 @@ let routes = {
     {
       path: '/invoice/pay/:id',
       element: <InvoiceRecordPayment />,
+    },
+    {
+      path:'/query',
+      element: <Query />
+    },
+    {
+      path:'/query/create',
+      element: <QueryCreate />
+    },
+    {
+      path: '/query/read/:id',
+      element: <QueryRead />,
+    },
+    {
+      path: '/query/update/:id',
+      element: <QueryUpdate />,
     },
     {
       path: '/quote',

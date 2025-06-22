@@ -26,6 +26,7 @@ import {
   FilterOutlined,
   WalletOutlined,
   ReconciliationOutlined,
+  MessageOutlined
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -59,11 +60,15 @@ function Sidebar({ collapsible, isMobile = false }) {
       icon: <CustomerServiceOutlined />,
       label: <Link to={'/customer'}>{translate('customers')}</Link>,
     },
-
     {
       key: 'invoice',
       icon: <ContainerOutlined />,
       label: <Link to={'/invoice'}>{translate('invoices')}</Link>,
+    },
+    {
+      key: 'query',
+      icon: <MessageOutlined />,
+      label: <Link to={'/query'}>{translate('query')}</Link>,
     },
     {
       key: 'quote',

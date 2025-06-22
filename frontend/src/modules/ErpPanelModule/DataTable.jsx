@@ -181,20 +181,27 @@ export default function DataTable({ config, extra = [] }) {
         onBack={() => window.history.back()}
         backIcon={<ArrowLeftOutlined />}
         extra={[
-          <AutoCompleteAsync
-            key={`${uniqueId()}`}
-            entity={searchConfig?.entity}
-            displayLabels={['name']}
-            searchFields={'name'}
-            onChange={filterTable}
-            // redirectLabel={'Add New Client'}
-            // withRedirect
-            // urlToRedirect={'/customer'}
-          />,
-          <Button onClick={handelDataTableLoad} key={`${uniqueId()}`} icon={<RedoOutlined />}>
-            {translate('Refresh')}
-          </Button>,
-
+          ...(entity !== 'query'
+            ? [
+                <AutoCompleteAsync
+                  key={`${uniqueId()}`}
+                  entity={searchConfig?.entity}
+                  displayLabels={['name']}
+                  searchFields={'name'}
+                  onChange={filterTable}
+                  // redirectLabel={'Add New Client'}
+                  // withRedirect
+                  // urlToRedirect={'/customer'}
+                />,
+                <Button onClick={handelDataTableLoad} key={`${uniqueId()}`} icon={<RedoOutlined />}>
+                  {translate('Refresh')}
+                </Button>,
+              ]
+            : [
+                <Button onClick={handelDataTableLoad} key={`${uniqueId()}`} icon={<RedoOutlined />}>
+                  {translate('Refresh')}
+                </Button>,
+              ]),
           !disableAdd && <AddNewItem config={config} key={`${uniqueId()}`} />,
         ]}
         style={{

@@ -1,3 +1,4 @@
+const { customer } = require("@/locale/translation/en_us");
 const mongoose = require("mongoose");
 
 const noteSchema = new mongoose.Schema({
@@ -13,10 +14,11 @@ const noteSchema = new mongoose.Schema({
 });
 
 const querySchema = new mongoose.Schema({
-  customerName: {
+   customer: {
       type: mongoose.Schema.ObjectId,
       ref: 'Client',
-      autopopulate: {select: 'name'},
+      required: true,
+      autopopulate: true,
     },
   description: {
     type: String,
