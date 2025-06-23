@@ -27,45 +27,38 @@ import { useNavigate } from 'react-router-dom';
 const Item = ({ item, currentErp }) => {
   const { moneyFormatter } = useMoney();
   return (
-    <Row gutter={[12, 0]} key={item._id}>
-      <Col className="gutter-row" span={11}>
-        <p style={{ marginBottom: 5 }}>
-          <strong>{item.itemName}</strong>
-        </p>
-        <p>{item.description}</p>
-      </Col>
-      <Col className="gutter-row" span={4}>
-        <p
-          style={{
-            textAlign: 'right',
-          }}
-        >
-          {moneyFormatter({ amount: item.price, currency_code: currentErp.currency })}
-        </p>
-      </Col>
-      <Col className="gutter-row" span={4}>
-        <p
-          style={{
-            textAlign: 'right',
-          }}
-        >
-          {item.quantity}
-        </p>
-      </Col>
-      <Col className="gutter-row" span={5}>
-        <p
-          style={{
-            textAlign: 'right',
-            fontWeight: '700',
-          }}
-        >
-          {moneyFormatter({ amount: item.total, currency_code: currentErp.currency })}
-        </p>
-      </Col>
+    <>
+      <Row gutter={[12, 0]} key={item._id}>
+        <Col className="gutter-row" span={11}>
+          <p style={{ marginBottom: 5 }}>
+            <strong>{item.itemName}</strong>
+          </p>
+          <p>{item.description}</p>
+          {item.note && (
+            <p style={{ fontStyle: 'italic', color: '#999', marginTop: 5 }}>
+              {`📝 ${item.note}`}
+            </p>
+          )}
+        </Col>
+        <Col className="gutter-row" span={4}>
+          <p style={{ textAlign: 'right' }}>
+            {moneyFormatter({ amount: item.price, currency_code: currentErp.currency })}
+          </p>
+        </Col>
+        <Col className="gutter-row" span={4}>
+          <p style={{ textAlign: 'right' }}>{item.quantity}</p>
+        </Col>
+        <Col className="gutter-row" span={5}>
+          <p style={{ textAlign: 'right', fontWeight: '700' }}>
+            {moneyFormatter({ amount: item.total, currency_code: currentErp.currency })}
+          </p>
+        </Col>
+      </Row>
       <Divider dashed style={{ marginTop: 0, marginBottom: 15 }} />
-    </Row>
+    </>
   );
 };
+
 
 export default function ReadItem({ config, selectedItem }) {
   const translate = useLanguage();
@@ -235,7 +228,7 @@ export default function ReadItem({ config, selectedItem }) {
         </Row>
       </PageHeader>
       <Divider dashed />
-      <Descriptions title={`Client : ${(currentErp.client && currentErp.client.name) || currentErp.customer.name}`}>
+      <Descriptions title={`Client : ${(currentErp.client && currentErp.client.name) ||(currentErp.customer && currentErp.customer.name)}`}>
         <Descriptions.Item label={translate('Address')}>{client.address}</Descriptions.Item>
         <Descriptions.Item label={translate('email')}>{client.email}</Descriptions.Item>
         <Descriptions.Item label={translate('Phone')}>{client.phone}</Descriptions.Item>

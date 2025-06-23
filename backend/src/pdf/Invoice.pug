@@ -84,77 +84,31 @@ html
       .col {
         float:left;
       }
-      .col-1 {
-        width: 4.16667%; }
+      .col-1 { width: 4.16667%; }
+      .col-2 { width: 8.33333%; }
+      .col-3 { width: 12.5%; }
+      .col-4 { width: 16.66667%; }
+      .col-5 { width: 20.83333%; }
+      .col-6 { width: 25%; }
+      .col-7 { width: 29.16667%; }
+      .col-8 { width: 33.33333%; }
+      .col-9 { width: 37.5%; }
+      .col-10 { width: 41.66667%; }
+      .col-11 { width: 45.83333%; }
+      .col-12 { width: 50%; }
+      .col-13 { width: 54.16667%; }
+      .col-14 { width: 58.33333%; }
+      .col-15 { width: 62.5%; }
+      .col-16 { width: 66.66667%; }
+      .col-17 { width: 70.83333%; }
+      .col-18 { width: 75%; }
+      .col-19 { width: 79.16667%; }
+      .col-20 { width: 83.33333%; }
+      .col-21 { width: 87.5%; }
+      .col-22 { width: 91.66667%; }
+      .col-23 { width: 95.83333%; }
+      .col-24 { width: 100%; }
 
-      .col-2 {
-        width: 8.33333%; }
-
-      .col-3 {
-        width: 12.5%; }
-
-      .col-4 {
-        width: 16.66667%; }
-
-      .col-5 {
-        width: 20.83333%; }
-
-      .col-6 {
-        width: 25%; }
-
-      .col-7 {
-        width: 29.16667%; }
-
-      .col-8 {
-        width: 33.33333%; }
-
-      .col-9 {
-        width: 37.5%; }
-
-      .col-10 {
-        width: 41.66667%; }
-
-      .col-11 {
-        width: 45.83333%; }
-
-      .col-12 {
-        width: 50%; }
-
-      .col-13 {
-        width: 54.16667%; }
-
-      .col-14 {
-        width: 58.33333%; }
-
-      .col-15 {
-        width: 62.5%; }
-
-      .col-16 {
-        width: 66.66667%; }
-
-      .col-17 {
-        width: 70.83333%; }
-
-      .col-18 {
-        width: 75%; }
-
-      .col-19 {
-        width: 79.16667%; }
-
-      .col-20 {
-        width: 83.33333%; }
-
-      .col-21 {
-        width: 87.5%; }
-
-      .col-22 {
-        width: 91.66667%; }
-
-      .col-23 {
-        width: 95.83333%; }
-
-      .col-24 {
-        width: 100%; }
       .space {
         margin-top: 30px;
         margin-bottom: 40px;
@@ -243,7 +197,6 @@ html
       }
       .notice-invoice .notice {
         color: #5d6975;
-        
       }
       .footer-invoice {
         margin-top:30px
@@ -251,76 +204,74 @@ html
         width: 100%;
         position: absolute;
         bottom: 0;
-        
         padding: 20px 0;
         text-align: center;
       }
- 
-  body
-    
-      header.clearfix
-        .top-area
-          img.logo.left(src=settings.public_server_file+settings.company_logo)
-          .right.company-info
-              p.strong #{settings.company_name}
-              p #{settings.company_address}
-              p #{settings.company_reg_number}
-              
-        .col.col-24
-          .space  
-        .left.col-14
-            h1.invoice
-              | #{translate('invoice')}
-            div 
-              .col.col-7
-                p.strong #{translate('Date')} :
-                p #{moment(model.date).format(dateFormat)}
-              .col.col-9
-                p.strong #{translate('Expired Date')} :
-                p #{moment(model.expiredDate).format(dateFormat)}
-              .col.col-8 
-                p.strong #{translate('Number')} :
-                p # #{model.number}/#{model.year || ""} 
-              
-        .right.col-10
-            .billTo
-                p #{translate('Client')} :
-                p #{model.client.name}
-                p #{model.client.address}
-                p #{model.client.phone}
-                p #{model.client.email}
-        .col.col-24
-          .space  
-      main
-        table.table-invoice
-          thead
-            tr.tableHeader
-              th.service #{translate('item')}
-              th #{translate('Quantity')}
-              th #{translate('PRICE')}
-              th #{translate('TOTAL')}
-          tbody
-            each item in model.items
-              tr
-                td.service #{item.itemName}
-                  span #{item.description}
-                td.qty #{item.quantity}  
-                td.unit  #{moneyFormatter({amount:item.price})}
-                td.total #{moneyFormatter({amount:item.total})}
-            tr
-              td(colspan='3') #{translate('SUB TOTAL')}
-              td.total #{moneyFormatter({amount:model.subTotal})}
-            tr
-              td(colspan='3') #{translate('TAX')} #{model.taxRate} %
-              td.total #{moneyFormatter({amount:model.taxTotal})}
-            tr
-              td.grand.total(colspan='3')  #{translate('TOTAL')} 
-              td.grand.total #{moneyFormatter({amount:model.total})}
-        
-      .col.col-24
-          .space     
-      footer.footer-invoice
-        //- | Invoice was created on a computer and is valid without the signature and seal.
-          
 
-   
+  body
+    header.clearfix
+      .top-area
+        img.logo.left(src=settings.public_server_file+settings.company_logo)
+        .right.company-info
+          p.strong #{settings.company_name}
+          p #{settings.company_address}
+          p #{settings.company_reg_number}
+      .col.col-24
+        .space  
+      .left.col-14
+        h1.invoice
+          | #{translate('invoice')}
+        div 
+          .col.col-7
+            p.strong #{translate('Date')} :
+            p #{moment(model.date).format(dateFormat)}
+          .col.col-9
+            p.strong #{translate('Expired Date')} :
+            p #{moment(model.expiredDate).format(dateFormat)}
+          .col.col-8 
+            p.strong #{translate('Number')} :
+            p # #{model.number}/#{model.year || ""} 
+      .right.col-10
+        .billTo
+          p #{translate('Client')} :
+          p #{model.client.name}
+          p #{model.client.address}
+          p #{model.client.phone}
+          p #{model.client.email}
+      .col.col-24
+        .space  
+
+    main
+      table.table-invoice
+        thead
+          tr.tableHeader
+            th.service #{translate('item')}
+            th #{translate('Quantity')}
+            th #{translate('PRICE')}
+            th #{translate('TOTAL')}
+        tbody
+          each item in model.items
+            tr
+              td.service 
+                | #{item.itemName}
+                if item.description
+                  span #{item.description}
+                if item.note
+                  span 📝 #{item.note}
+              td.qty #{item.quantity}  
+              td.unit  #{moneyFormatter({amount:item.price})}
+              td.total #{moneyFormatter({amount:item.total})}
+          tr
+            td(colspan='3') #{translate('SUB TOTAL')}
+            td.total #{moneyFormatter({amount:model.subTotal})}
+          tr
+            td(colspan='3') #{translate('TAX')} #{model.taxRate} %
+            td.total #{moneyFormatter({amount:model.taxTotal})}
+          tr
+            td.grand.total(colspan='3')  #{translate('TOTAL')} 
+            td.grand.total #{moneyFormatter({amount:model.total})}
+
+    .col.col-24
+      .space     
+    footer.footer-invoice
+      // You can leave any footer here if needed
