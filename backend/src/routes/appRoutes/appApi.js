@@ -4,6 +4,7 @@ const router = express.Router();
 
 const appControllers = require('@/controllers/appControllers');
 const { routesList } = require('@/models/utils');
+const generateInvoiceSummary = require('@/controllers/appControllers/invoiceController/generateInvoiceSummary');
 
 const routerApp = (entity, controller) => {
   router.route(`/${entity}/create`).post(catchErrors(controller['create']));
@@ -22,6 +23,10 @@ const routerApp = (entity, controller) => {
 
   if (entity === 'quote') {
     router.route(`/${entity}/convert/:id`).get(catchErrors(controller['convert']));
+  }
+
+  if(entity === 'invoice'){
+    router.route(`/${entity}/:id/summary`).get(catchErrors(generateInvoiceSummary));
   }
 };
 

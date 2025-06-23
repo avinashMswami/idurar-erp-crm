@@ -9,6 +9,7 @@ import {
   CloseCircleOutlined,
   RetweetOutlined,
   MailOutlined,
+  CalculatorOutlined,
 } from '@ant-design/icons';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -23,8 +24,9 @@ import { DOWNLOAD_BASE_URL } from '@/config/serverApiConfig';
 import { useMoney, useDate } from '@/settings';
 import useMail from '@/hooks/useMail';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const Item = ({ item, currentErp }) => {
+const Item = ({ item, currentErp,entity }) => {
   const { moneyFormatter } = useMoney();
   return (
     <>
@@ -34,7 +36,7 @@ const Item = ({ item, currentErp }) => {
             <strong>{item.itemName}</strong>
           </p>
           <p>{item.description}</p>
-          {item.note && (
+          {item.note && entity==='invoice' && (
             <p style={{ fontStyle: 'italic', color: '#999', marginTop: 5 }}>
               {`📝 ${item.note}`}
             </p>
@@ -91,6 +93,18 @@ export default function ReadItem({ config, selectedItem }) {
   const [itemslist, setItemsList] = useState([]);
   const [currentErp, setCurrentErp] = useState(selectedItem ?? resetErp);
   const [client, setClient] = useState({});
+
+  const handleGenerateSummary = async () => {
+  try {
+    const res = await axios.get(`/invoice/${currentErp._id}/summary`);
+
+    // 🔁 Trigger refresh
+    dispatch(erp.read({ entity, id: currentErp._id }));
+  } catch (error) {
+    console.error('Failed to fetch summary:', error.message);
+  }
+};
+
   
   useEffect(() => {
     if (currentResult) {
@@ -270,7 +284,7 @@ export default function ReadItem({ config, selectedItem }) {
         <Divider />
       </Row>
       {itemslist.map((item) => (
-        <Item key={item._id} item={item} currentErp={currentErp}></Item>
+        <Item key={item._id} item={item} currentErp={currentErp} entity={entity}></Item>
       ))}
       <div
         style={{
@@ -310,6 +324,29 @@ export default function ReadItem({ config, selectedItem }) {
           </Col>
         </Row>
       </div>
+            {/* 💡 NEW: Summary Section */}
+      <Divider dashed />
+      <div style={{ clear: 'both', marginTop: '40px' }}>
+        <Descriptions title={translate('Summary')} bordered column={1}>
+          <Descriptions.Item >
+            {currentErp.noteSummary || translate('No notes available')}
+          </Descriptions.Item>
+        </Descriptions>
+        <div style={{ marginTop: '20px', textAlign: 'right' }}>
+          <Button
+            icon={<CalculatorOutlined />}
+            type="primary"
+            onClick={() => {
+              handleGenerateSummary();
+              // You can trigger summary generation logic or PDF from here
+              console.log('Generating Summary...');
+            }}
+          >
+            {translate('Generate Summary')}
+          </Button>
+        </div>
+      </div>
+
     </>
   );
 }
